@@ -3,12 +3,14 @@ import java.util.Random;
 import java.util.Iterator;
 public class SpreadFire{
 	private double prob=0.7;
-	private int areaunit=50;
+	private int areaunit=90;
 	private ArrayList<ArrayList<Integer>> area;
 	private ArrayList<ArrayList<Double>> probTree;
 	private ArrayList<Integer> burningi;
 	private ArrayList<Integer> burningj;
-	public SpreadFire(){
+	public SpreadFire(int areaIn,double probIn){
+		prob=probIn;
+		areaunit=areaIn;
 		burningi=new ArrayList<>();
 		burningj=new ArrayList<>();
 		area=new ArrayList<ArrayList<Integer>>();
@@ -25,6 +27,7 @@ public class SpreadFire{
 		randStartPoint();
 		for(int i=0;i<80;i++){
 			burn();
+
 			print();
 			System.out.println("-----------------------------");
 		}
@@ -35,7 +38,7 @@ public class SpreadFire{
 			ArrayList<Integer> tmp=new ArrayList<>();
 			ArrayList<Double> tmpProb=new ArrayList<>();
 			for(int j=0;j<areaunit;j++){
-				if(i==0 || j==0 || i==areaunit-1 || j==areaunit-1){
+				if(i==0 || j==0 || i==areaunit-1 || j==areaunit-1){// border
 					tmp.add(0);
 					tmpProb.add(Math.random());
 				}else{
@@ -51,7 +54,18 @@ public class SpreadFire{
 
 	private void randStartPoint(){
 		int range=((areaunit-2)-1)+1;
-		area.get((int)((Math.random()*range)+1)).set((int)((Math.random()*range)+1),2);
+		int rnd1=(int)((Math.random()*range)+1);
+		int rnd2=(int)((Math.random()*range)+1);
+		area.get(rnd1).set(rnd2,2);
+		burningi.add(rnd1);
+		burningj.add(rnd2);
+
+
+		rnd1=(int)((Math.random()*range)+1);
+		rnd2=(int)((Math.random()*range)+1);
+		area.get(rnd1).set(rnd2,2);
+		burningi.add(rnd1);
+		burningj.add(rnd2);
 	}
 
 	public void print(){
@@ -67,7 +81,7 @@ public class SpreadFire{
 	*To get Burning point
 	*
 	**/
-	public void getBurning(){
+	/*public void getBurning(){
 		burningi.clear();
 		burningj.clear();
 		for(int i=1;i<areaunit-1;i++){
@@ -78,12 +92,14 @@ public class SpreadFire{
 				}
 			}
 		}
-	}
+	}*/
 
 
 
 	public void burn(){
-		getBurning();
+		//getBurning();
+		ArrayList<Integer> tmpbi=new ArrayList<>();
+		ArrayList<Integer> tmpbj=new ArrayList<>();
 		int i,j;
 		for(int k=0 ;k<burningi.size();k++){
 			i=burningi.get(k);
@@ -91,30 +107,40 @@ public class SpreadFire{
 				if(area.get(i-1).get(j)==1){
 					if(probTree.get(i-1).get(j)<prob){
 						area.get(i-1).set(j,2);
+						tmpbi.add(i-1);
+						tmpbj.add(j);
 					}
 				}
 
 				if(area.get(i+1).get(j)==1){
 					if(probTree.get(i+1).get(j)<prob){
 						area.get(i+1).set(j,2);
+						tmpbi.add(i+1);
+						tmpbj.add(j);
 					}
 				}
 
 				if(area.get(i).get(j-1)==1){
 					if(probTree.get(i).get(j-1)<prob){
 						area.get(i).set(j-1,2);
+						tmpbi.add(i);
+						tmpbj.add(j-1);
 					}
 				}
 
 				if(area.get(i).get(j+1)==1){
 					if(probTree.get(i).get(j+1)<prob){
 						area.get(i).set(j+1,2);
+						tmpbi.add(i);
+						tmpbj.add(j+1);
 					}
 				}
 				//burn complete then set to 0
 				area.get(i).set(j,0);
 			
 		}
+		burningi=tmpbi;
+		burningj=tmpbj;
 	}
 
 }
