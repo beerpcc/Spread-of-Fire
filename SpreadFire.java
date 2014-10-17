@@ -31,6 +31,12 @@ public class SpreadFire{
 
 		while(burningj.size()!=0){
 			burn();
+			try{
+			Thread.sleep(100);
+
+			}catch(Exception e){
+
+			}
 			sc.drawGrid(areaunit,600,area);
 			//print();
 			//System.out.println("-----------------------------");
@@ -64,13 +70,13 @@ public class SpreadFire{
 		area.get(rnd1).set(rnd2,2);
 		burningi.add(rnd1);
 		burningj.add(rnd2);
-
+/*
 
 		rnd1=(int)((Math.random()*range)+1);
 		rnd2=(int)((Math.random()*range)+1);
 		area.get(rnd1).set(rnd2,2);
 		burningi.add(rnd1);
-		burningj.add(rnd2);
+		burningj.add(rnd2);*/
 	}
 
 	public void print(){

@@ -18,9 +18,6 @@ public class DrawGrid extends JPanel{
 	}
 	@Override
 	public void paintComponent(Graphics g){
-		//	screenwh+=
-		// boolean x=screenwh%rowcol==0;
-		// if(i++==(x ? 1: 2)){
 		    super.paintComponent(g);
 		    for (int i=0,l=0;i<rowcol ;i+=rsize,l++ ) {
 		    	for (int j=0,m=0;j<rowcol ;j+=rsize,m++ ) {
@@ -31,8 +28,6 @@ public class DrawGrid extends JPanel{
 		    	}
 		    	//sizei++;
 		    }
-		   
-		// }
 	}
 
 	public Color getColor(int i){
