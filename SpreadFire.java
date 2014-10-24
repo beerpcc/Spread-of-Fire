@@ -8,9 +8,7 @@ public class SpreadFire{
 	private ArrayList<ArrayList<Double>> probTree;
 	private ArrayList<Integer> burningi;
 	private ArrayList<Integer> burningj;
-	private Screen sc;
 	public SpreadFire(int areaIn,double probIn){
-		sc=new Screen();
 		prob=probIn;
 		areaunit=areaIn;
 		burningi=new ArrayList<>();
@@ -22,15 +20,14 @@ public class SpreadFire{
 	public void init(){
 		initArea();
 		run();
-		
-			
+		//print();
 	}
 
 	private void run(){
 		randStartPoint();
-
-		while(burningj.size()!=0){
+		for(int i=0;i<80;i++){
 			burn();
+<<<<<<< HEAD
 			try{
 			Thread.sleep(100);
 
@@ -40,7 +37,11 @@ public class SpreadFire{
 			sc.drawGrid(areaunit,600,area);
 			//print();
 			//System.out.println("-----------------------------");
+=======
+>>>>>>> parent of 08376db... GUI Visualization
 
+			print();
+			System.out.println("-----------------------------");
 		}
 	}
 
