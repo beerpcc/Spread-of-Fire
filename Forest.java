@@ -18,7 +18,7 @@ public class Forest {
                 } else if (i == forest.length / 2 && j == forest.length / 2) {
                     forest[i][j] = 2;
                     probtree[i][j] = randomProb();
-                } else {
+                } else { 
                     forest[i][j] = 1;
                     probtree[i][j] = randomProb();
                 }

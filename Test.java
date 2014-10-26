@@ -9,10 +9,14 @@
  */
 public class Test {
     public static void main(String[] args){
-        Forest f = new Forest(10);
+        Forest f = new Forest(11,0.7);
         f.printArr();
         f.fireSpread();
-        System.out.println();
+                System.out.println();
         f.printArr();
+        f.fireSpread();
+           System.out.println();
+        f.printArr();
+        System.out.println();
+        //f.printProb();
     }
-}
