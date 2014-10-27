@@ -1,48 +1,65 @@
-
-
+import java.util.ArrayList;
 public class Forest {
-    private double[][] probtree;
-    private int[][] forest;
+    private ArrayList<ArrayList<Double>> probtree=new ArrayList<>();
+    private ArrayList<ArrayList<Integer>> forest=new ArrayList<>();
     private double prob = 0;
     double random;
     public Forest(int size,double prob) {
         this.prob = prob;
-        forest = new int[size][size];
-        probtree = new double[size][size];
         for (int i = 0; i < size; i++) {
+        ArrayList<Double> tmpProb=new ArrayList<>();
+        ArrayList<Integer> tmpForest=new ArrayList<>();
             for (int j = 0; j < size; j++) {
-                if (i == 0 || j == 0 || i == forest.length - 1 || j == forest.length - 1) {
-                    forest[i][j] = 0;
-                    probtree[i][j] = randomProb();
+                if (i == 0 || j == 0 || i == forest.size() - 1 || j == forest.size() - 1) {
+                    //border
+                    tmpForest.add(0);
+                    tmpProb.add(randomProb());
                     
-                } else if (i == forest.length / 2 && j == forest.length / 2) {
-                    forest[i][j] = 2;
-                    probtree[i][j] = randomProb();
+                } else if (i == forest.size() / 2 && j == forest.size() / 2) {
+                    //assign center point is burning
+                    tmpForest.add(2);
+                    tmpProb.add(randomProb());
                 } else { 
-                    forest[i][j] = 1;
-                    probtree[i][j] = randomProb();
+                    //normal tree
+                    tmpForest.add(1);
+                    tmpProb.add(randomProb());
                 }
             }
+            probtree.add(tmpProb);
+            forest.add(tmpForest);
         }
     }
 
-    public void printArr() {
-        for (int i = 0; i < forest.length; i++) {
-            for (int j = 0; j < forest[i].length; j++) {
-                System.out.print(forest[i][j] + " ");
+    public ArrayList get(String type){
+        if(type.equals("forest")){
+            return forest;
+        }else if(type.equals("forest")){
+            return probtree;
+        }
+    }
+
+   /* public void printArr() {
+        for (int i = 0; i < forest.size(); i++) {
+            for (int j = 0; j < forest.get(i).size(); j++) {
+                System.out.print(forest.get(i).get(j) + " ");
             }
             System.out.println();
         }
     }
     public void printProb(){
-                for (int i = 0; i < probtree.length; i++) {
-            for (int j = 0; j < probtree[i].length; j++) {
-                System.out.print(probtree[i][j] + " ");
+                for (int i = 0; i < probtree.size(); i++) {
+            for (int j = 0; j < probtree.get(i).size(); j++) {
+                System.out.print(probtree.get(i).get(j) + " ");
             }
             System.out.println();
         }
         
-    }
+    }*/
+
+    //for get i j in arraylist
+   /* public int getNum(int i,int j){
+
+    }*/
 
     public double randomProb() {
         random = Math.random();
@@ -50,23 +67,25 @@ public class Forest {
     }
 
     public void fireSpread() {
-        for (int i = 1; i < forest.length-1; i++) {
-            for (int j = 1; j < forest[i].length-1; j++) {
-                if (forest[i][j] == 2) {
-                    if(forest[i+1][j] == 1 && probtree[i+1][j] < prob){
-                    forest[i+1][j] = 2;
-                    
-                    break;
+
+        for (int i = 1; i < forest.size()-1; i++) {
+            for (int j = 1; j < forest.get(i).size()-1; j++) {
+                if (forest.get(i).get(j) == 2) {
+
+                    if(forest.get(i+1).get(j) == 1 && probtree.get(i+1).get(j) < prob){
+                        forest.get(i+1).set(j,2);
                     }
-                    if(forest[i-1][j] == 1 && probtree[i-1][j] < prob){
-                    forest[i-1][j] =2;
-                    break;
-                    }if(forest[i][j+1] == 1 && probtree[i][j+1] < prob){
-                        forest[i][j+1] = 2;
-                        break;
-                    }if(forest[i][j-1] == 1 && probtree[i][j-1] < prob){
-                        forest[i][j-1] = 2;
-                        break;
+
+                    if(forest.get(i-1).get(j) == 1 && probtree.get(i-1).get(j) < prob){
+                        forest.get(i-1).set(j,2);
+                    }
+
+                    if(forest.get(i).get(j+1) == 1 && probtree.get(i).get(j+1) < prob){
+                        forest.get(i).set(j+1,2);
+                    }
+
+                    if(forest.get(i).get(j-1) == 1 && probtree.get(i).get(j-1) < prob){
+                        forest.get(i).set(j-1,2);
                     }
                 }
                 
