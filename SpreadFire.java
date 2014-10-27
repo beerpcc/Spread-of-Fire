@@ -8,20 +8,29 @@
  * @author user
  */
 import java.util.Iterator;
+import java.util.ArrayList;
 public class SpreadFire {
     private int area;
-    private int prob;
+    private double prob;
     Forest fr;
-    public SpreadFire(int areain,int probin){
+    public SpreadFire(int areain,double probin){
         area=areain;
         prob=probin;
         fr=new Forest(area,prob);
     }
 
     public void print(String type){
-        for(int i=0;i<fr.get("forest").size();i++){
-           for(int j=0;j<fr.get("forest").get(i).size();j++){
-                System.out.print(fr.get("forest").get(i).get(j)+" ");
+
+        if(type.equals("forest")){
+            ArrayList<ArrayList<Integer>> arrlst=fr.getForest();
+        }else if(type.equals("probtree")){
+            ArrayList<ArrayList<Double>> arrlst=fr.getProbTree();
+
+        }
+
+        for(int i=0;i<fr.getForest().size();i++){
+           for(int j=0;j<fr.getForest().get(i).size();j++){
+                System.out.print(fr.getForest().get(i).get(j)+" ");
             }
             System.out.println();
         }

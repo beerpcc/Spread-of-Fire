@@ -3,23 +3,25 @@ public class Forest {
     private ArrayList<ArrayList<Double>> probtree=new ArrayList<>();
     private ArrayList<ArrayList<Integer>> forest=new ArrayList<>();
     private double prob = 0;
+    private double size = 0 ;
     double random;
     public Forest(int size,double prob) {
+        this.size = size;
         this.prob = prob;
         for (int i = 0; i < size; i++) {
         ArrayList<Double> tmpProb=new ArrayList<>();
         ArrayList<Integer> tmpForest=new ArrayList<>();
             for (int j = 0; j < size; j++) {
-                if (i == 0 || j == 0 || i == forest.size() - 1 || j == forest.size() - 1) {
+                if(i == 0 || j == 0 || i == size - 1 || j == size - 1) {
                     //border
                     tmpForest.add(0);
                     tmpProb.add(randomProb());
                     
-                } else if (i == forest.size() / 2 && j == forest.size() / 2) {
+                }else if (i == size / 2 && j == size / 2) {
                     //assign center point is burning
                     tmpForest.add(2);
                     tmpProb.add(randomProb());
-                } else { 
+                }else { 
                     //normal tree
                     tmpForest.add(1);
                     tmpProb.add(randomProb());
@@ -30,12 +32,12 @@ public class Forest {
         }
     }
 
-    public ArrayList get(String type){
-        if(type.equals("forest")){
-            return forest;
-        }else if(type.equals("forest")){
-            return probtree;
-        }
+    public ArrayList<ArrayList<Integer>> getForest(){
+        return forest;
+    }
+
+    public ArrayList<ArrayList<Double>> getProbTree(){
+        return probtree;
     }
 
    /* public void printArr() {
