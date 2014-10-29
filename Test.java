@@ -9,8 +9,8 @@
  */
 public class Test {
     public static void main(String[] args){
-        SpreadFire s = new SpreadFire(20,0.7);
-        s.print("forest");
+        SpreadFire s = new SpreadFire(10,0.7);
+        s.burn();
        /* f.printArr();
         f.fireSpread();
                 System.out.println();

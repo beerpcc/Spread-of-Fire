@@ -33,6 +33,17 @@ public class SpreadFire {
                 System.out.print(fr.getForest().get(i).get(j)+" ");
             }
             System.out.println();
+            
+        }
+        System.out.println();
+        System.out.println();
+
+    }
+
+    public void burn(){
+        while(fr.isBurning()){
+            fr.fireSpread();
+            print("forest");
         }
     }
 }
