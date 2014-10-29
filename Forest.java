@@ -45,9 +45,9 @@ public class Forest {
         // 0 1 1 0
         // 0 0 0 0
         for(int k=0;k<c;k++){
-            int range = ((size-2) - 1) + 1;     
-            int i=(int)(Math.random() * range) + min;//between 1 to size-2
-            int j=(int)(Math.random() * range) + min;//
+            double range = ((size-2) - 1) + 1;     
+            int i=(int)(Math.random() * range) + 1;//between 1 to size-2
+            int j=(int)(Math.random() * range) + 1;//
             forest.get(i).set(j,2);
         }
 
