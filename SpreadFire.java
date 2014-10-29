@@ -42,8 +42,8 @@ public class SpreadFire {
 
     public void burn(){
         while(fr.isBurning()){
-            fr.fireSpread();
-            print("forest");
+        print("forest");    
+	fr.fireSpread();
         }
     }
 }
