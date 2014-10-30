@@ -12,11 +12,13 @@ import java.util.ArrayList;
 public class SpreadFire {
     private int area;
     private double prob;
+    private double probtreeborn;
     Forest fr;
-    public SpreadFire(int areain,double probin){
+    public SpreadFire(int areain,double probin,double probtreeborn){
         area=areain;
         prob=probin;
-        fr=new Forest(area,prob);
+        probtreeborn = probtreeborn;
+        fr=new Forest(area,prob,probtreeborn);
     }
 
     public void print(String type){
@@ -41,9 +43,9 @@ public class SpreadFire {
     }
 
     public void burn(){
-        while(fr.isBurning()){
+        //while(fr.isBurning()){
         print("forest");    
-	fr.fireSpread();
-        }
+	//fr.fireSpread();
+       // }
     }
 }

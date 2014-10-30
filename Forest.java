@@ -4,12 +4,14 @@ public class Forest {
     private ArrayList<ArrayList<Integer>> forest=new ArrayList<>();
     private ArrayList<Integer> tmpburni;//store burnning point i 
     private ArrayList<Integer> tmpburnj;//store burnning point j tmpburni.add(30);
+    private double treeborn = 0;
     private double prob = 0;
     private double size = 0 ;
     double random;
-    public Forest(int size,double prob) {
+    public Forest(int size,double prob,double probtreeborn){
         tmpburni=new ArrayList<>();
         tmpburnj=new ArrayList<>();
+        this.treeborn = probtreeborn;
         this.size = size;
         this.prob = prob;
         for (int i = 0; i < size; i++) {
@@ -36,7 +38,8 @@ public class Forest {
             probtree.add(tmpProb);
             forest.add(tmpForest);
         }
-        randomStartBurn(2);
+        //randomStartBurn(2);
+        assignTreeAndFire();
     }
 
     private void randomStartBurn(int c){
@@ -122,4 +125,19 @@ public class Forest {
 
 
     }
+    public void assignTreeAndFire(){
+        for(int i =1;i<size-2;i++){
+            for(int j = 1;j<size-2;j++){
+            if(randomProb() < treeborn){
+                if(randomProb() < prob){
+            forest.get(i).set(j,2);
+                }else{
+            forest.get(i).set(j,1);
+                 }
+            }else{
+            forest.get(i).set(j,0);
+             }
+        }
+    }
+}
 }
