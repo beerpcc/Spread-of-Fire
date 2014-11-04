@@ -131,6 +131,8 @@ public class Forest {
             if(randomProb() < treeborn){
                 if(randomProb() < prob){
             forest.get(i).set(j,2);
+            tmpburni.add(i);
+            tmpburnj.add(j);
                 }else{
             forest.get(i).set(j,1);
                  }
