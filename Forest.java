@@ -14,6 +14,12 @@ public class Forest {
         this.treeborn = probtreeborn;
         this.size = size;
         this.prob = prob;
+        build();
+        randomStartBurn(2);
+        //assignTreeAndFire();
+    }
+
+    private void build(){
         for (int i = 0; i < size; i++) {
         ArrayList<Double> tmpProb=new ArrayList<>();
         ArrayList<Integer> tmpForest=new ArrayList<>();
@@ -38,8 +44,6 @@ public class Forest {
             probtree.add(tmpProb);
             forest.add(tmpForest);
         }
-        randomStartBurn(2);
-       // assignTreeAndFire();
     }
 
     private void randomStartBurn(int c){
@@ -130,14 +134,14 @@ public class Forest {
             for(int j = 1;j<size-2;j++){
             if(randomProb() < treeborn){
                 if(randomProb() < prob){
-            forest.get(i).set(j,2);
-            tmpburni.add(i);
-            tmpburnj.add(j);
+                    forest.get(i).set(j,2);
+                    tmpburni.add(i);
+                    tmpburnj.add(j);
                 }else{
-            forest.get(i).set(j,1);
+                    forest.get(i).set(j,1);
                  }
             }else{
-            forest.get(i).set(j,0);
+                forest.get(i).set(j,0);
              }
         }
     }

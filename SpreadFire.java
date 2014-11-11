@@ -15,6 +15,7 @@ public class SpreadFire {
     private double probtreeborn;
     private Forest fr;
     private GUI g;
+    private pause;
     public SpreadFire(int areain,double probin,double probtreeborn){
         area=areain;
         prob=probin;
@@ -22,6 +23,7 @@ public class SpreadFire {
         fr=new Forest(area,prob,probtreeborn);
         g=new GUI();
         g.setVisible(true);
+        pause=false;
     }
 
     public void print(String type){
@@ -45,12 +47,31 @@ public class SpreadFire {
 
     }
 
+    public void reset(){
+        fr.build();
+    }
+
+    private void pause(){
+        pause=true;
+    }
+
+    private void continue(){
+        pause=false;
+    }
+
     public void burn(){
         //print("forest");
         g.drawBlock(area,fr.getForest());
-        while(fr.isBurning()){
+        while(fr.isBurning() && !pause){
         //print("forest");  
             delay(10);
+            fr.fireSpread();
+            g.drawBlock(area,fr.getForest());
+        }
+    }
+
+    public void step(){
+        if(fr.isBurning()){
             fr.fireSpread();
             g.drawBlock(area,fr.getForest());
         }
