@@ -16,22 +16,22 @@ public class DrawGrid extends JPanel{
 		rsize=screenwh/rowcol;
 		rowcol*=rsize;
 	}
+
 	@Override
 	public void paintComponent(Graphics g){
-		    super.paintComponent(g);
-		    for (int i=0,l=0;i<rowcol ;i+=rsize,l++ ) {
-		    	for (int j=0,m=0;j<rowcol ;j+=rsize,m++ ) {
-		    		g.setColor(getColor(area.get(l).get(m)));
-		   			g.fillRect(i,j, rsize, rsize);
-		    		//System.out.println(j);
-		    		//sizej++;
-		    	}
-		    	//sizei++;
-		    }
+	    super.paintComponent(g);
+	    for (int i=0,l=0;i<rowcol ;i+=rsize,l++ ) {
+	    	for (int j=0,m=0;j<rowcol ;j+=rsize,m++ ) {
+	    		g.setColor(getColor(area.get(l).get(m)));
+	   			g.fillRect(i,j, rsize, rsize);
+	    		//System.out.println(j);
+	    		//sizej++;
+	    	}
+	    	//sizei++;
+	    }
 	}
 
 	public Color getColor(int i){
-
 		if(i==1){return Color.green;}
 		else if(i==2){return Color.red;}
 		else{return Color.yellow;}

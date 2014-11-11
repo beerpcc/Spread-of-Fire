@@ -15,14 +15,11 @@ public class Screen extends JPanel {
 		f=new JFrame("Spread of Fire");
 		scw=600;
 		f.setSize(scw,scw+10);
-		//f.setResizable(false);
-		
 	    contentPane = f.getContentPane();
 	    JButton btn =new JButton("run");
 		btn.setLocation(700,700);
 		contentPane.add(btn);
-		//f.show();
-		        f.setContentPane(contentPane);
+		f.setContentPane(contentPane);
 	}
 
 	public void drawGrid(int r,int c,ArrayList<ArrayList<Integer>> area){

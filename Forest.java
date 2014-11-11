@@ -49,6 +49,8 @@ public class Forest {
             int i=(int)(Math.random() * range) + 1;//between 1 to size-2
             int j=(int)(Math.random() * range) + 1;//
             forest.get(i).set(j,2);
+            tmpburni.add(i);
+            tmpburnj.add(j);
         }
 
     }
