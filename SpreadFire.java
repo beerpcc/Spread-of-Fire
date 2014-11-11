@@ -13,12 +13,15 @@ public class SpreadFire {
     private int area;
     private double prob;
     private double probtreeborn;
-    Forest fr;
+    private Forest fr;
+    private GUI g;
     public SpreadFire(int areain,double probin,double probtreeborn){
         area=areain;
         prob=probin;
         probtreeborn = probtreeborn;
         fr=new Forest(area,prob,probtreeborn);
+        g=new GUI();
+        g.setVisible(true);
     }
 
     public void print(String type){
@@ -43,17 +46,19 @@ public class SpreadFire {
     }
 
     public void burn(){
-<<<<<<< HEAD
-        int o=0;
-        while(o++<1){
-            fr.fireSpread();
-            print("forest");
-=======
-        print("forest");
+        //print("forest");
+        g.drawBlock(area,fr.getForest());
         while(fr.isBurning()){
-        print("forest");    
-	    fr.fireSpread();
->>>>>>> 5c86470efb556aebe1567ad848f9869f7a02cce2
+        //print("forest");  
+            delay(10);
+            fr.fireSpread();
+            g.drawBlock(area,fr.getForest());
         }
+    }
+
+    public void delay(int ms){
+        try{
+            Thread.sleep(ms);
+        }catch(Exception e){}
     }
 }

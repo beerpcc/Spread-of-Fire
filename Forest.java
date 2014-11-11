@@ -38,8 +38,8 @@ public class Forest {
             probtree.add(tmpProb);
             forest.add(tmpForest);
         }
-        //randomStartBurn(2);
-        assignTreeAndFire();
+        randomStartBurn(2);
+       // assignTreeAndFire();
     }
 
     private void randomStartBurn(int c){
@@ -53,11 +53,7 @@ public class Forest {
             int j=(int)(Math.random() * range) + 1;//
             forest.get(i).set(j,2);
             tmpburni.add(i);
-<<<<<<< HEAD
             tmpburnj.add(j);
-=======
- 	    tmpburnj.add(j); 
->>>>>>> 5c86470efb556aebe1567ad848f9869f7a02cce2
         }
 
     }
