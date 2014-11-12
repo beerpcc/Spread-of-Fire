@@ -19,7 +19,7 @@ public class Forest {
         //assignTreeAndFire();
     }
 
-    private void build(){
+    public void build(){
         for (int i = 0; i < size; i++) {
         ArrayList<Double> tmpProb=new ArrayList<>();
         ArrayList<Integer> tmpForest=new ArrayList<>();
