@@ -20,22 +20,22 @@ public class GUI extends JPanel {
 	private JPanel panel;
 	private int scw,rowcol;
 	private Container contentPane;
+	private Screen sc;
 	public GUI(){
-		frame=new JFrame("Spread of Fire");
+		/*frame=new JFrame("Spread of Fire");
 		scw=600;
 		frame.setSize(scw,scw+10);
 	    contentPane = frame.getContentPane();
 	    JButton btn =new JButton("run");
-		/*btn.setLocation(700,700);
-		contentPane.add(btn);*/
+		// btn.setLocation(700,700);
+		// contentPane.add(btn);
 		frame.setContentPane(contentPane);
-		frame.show();
+		frame.show();*/
+		sc=new Screen();
 	}
 
 	public void drawBlock(int r,ArrayList<ArrayList<Integer>> area){
 		//f.repaint();
-		contentPane.removeAll();
-	   	contentPane.add(new Draw(r,scw,area));
-	 	frame.setContentPane(contentPane);
+		sc.drawBlock(r,area);
 	}
 }

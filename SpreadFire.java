@@ -22,7 +22,6 @@ public class SpreadFire {
         probtreeborn = probtreeborn;
         fr=new Forest(area,prob,probtreeborn);
         g=new GUI();
-        g.setVisible(true);
         pause=false;
     }
 
