@@ -16,34 +16,38 @@ public class Draw extends JPanel{
 	private int rowcol;
 	private int screenwidth;
 	private int blocksize;
-	private boolean init;
-	public Draw(int rc,int scw,ArrayList<ArrayList<Integer>> f){
+	private int top;
+	public Draw(int rc,int scw,ArrayList<ArrayList<Integer>> f,int marginleft){
 		rowcol=rc;
 		screenwidth=scw;
 		forest=f;
 		blocksize=screenwidth/rowcol;
 		rowcol*=blocksize;
-		init=false;
+		top=marginleft;
 	}
 
-	public Draw(boolean init){
+	/*public Draw(boolean init){
 		this.init=init;
-	}
+	}*/
 
 	@Override
 	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		if(!init){
-		    for (int i=0,l=0;i<rowcol ;i+=blocksize,l++ ) {
-		    	for (int j=0,m=0;j<rowcol ;j+=blocksize,m++ ) {
-		    		g.setColor(getColor(forest.get(l).get(m)));
-		   			g.fillRect(i,j, blocksize, blocksize);
-		    	}
-		    }
-		}else{
+		//super.paintComponent(g);
+		
 			g.setColor(Color.green);
 			g.fillRect(blocksize,blocksize, screenwidth-blocksize,  screenwidth-blocksize);
-		}
+		
+		    for (int i=top,l=0;i<rowcol && l<forest.size();i+=blocksize,l++ ) {
+		    	for (int j=0,m=0;j<rowcol && m<forest.get(l).size() ;j+=blocksize,m++ ) {
+		    		g.setColor(getColor(forest.get(l).get(m)));
+		   			if(forest.get(l).get(m)!=1) {g.fillRect(i,j, blocksize, blocksize);}
+		    	}
+		    }
+		
+	}
+
+	public void reDrawBlock(){
+		repaint();
 	}
 
 	private Color getColor(int num){

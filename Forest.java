@@ -1,29 +1,61 @@
 import java.util.ArrayList;
 public class Forest {
-    private ArrayList<ArrayList<Double>> probtree=new ArrayList<>();
+    private ArrayList<ArrayList<Double>> probtreeburn=new ArrayList<>();//prob of each tree can burn or not
     private ArrayList<ArrayList<Integer>> forest=new ArrayList<>();
     private ArrayList<Integer> tmpburni;//store burnning point i 
     private ArrayList<Integer> tmpburnj;//store burnning point j tmpburni.add(30);
-    private double treeborn = 0;
-    private double prob = 0;
-    private double size = 0 ;
+    private double probtree = 0;
+    private double probburn = 0;
+    private double probtreestartburn = 0;
+    private int size = 0 ;
     double random;
-    public Forest(int size,double prob,double probtreeborn){
+    public Forest(int size,double probburn,double probtreestartburn,double probtree){
         tmpburni=new ArrayList<>();
         tmpburnj=new ArrayList<>();
-        this.treeborn = probtreeborn;
         this.size = size;
-        this.prob = prob;
+        this.probburn = probburn;
+        this.probtree=probtree;
+        this.probtreestartburn=probtreestartburn;
         build();
-        randomStartBurn(2);
-        //assignTreeAndFire();
+        //randomStartBurn(2);
+        assignTreeAndFire();
     }
 
+    public void reConstruct(){
+        build();
+        //randomStartBurn(2);
+        assignTreeAndFire();
+    }
+
+    public void setSize(int sz){
+        size=sz;
+    }
+
+    public void setProbBurn(double pb){
+        probburn=pb;
+    }
+
+    public void setProbTreeStartBurn(double tsb){
+        probtreestartburn=tsb;
+    }
+
+    public void setProbTree(double pt){
+        probburn=pt;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+
     public void build(){
+            probtreeburn.clear();
+            forest.clear();
         for (int i = 0; i < size; i++) {
         ArrayList<Double> tmpProb=new ArrayList<>();
         ArrayList<Integer> tmpForest=new ArrayList<>();
             for (int j = 0; j < size; j++) {
+                //System.otu.print(1);
                 if(i == 0 || j == 0 || i == size - 1 || j == size - 1) {
                     //border
                     tmpForest.add(0);
@@ -41,7 +73,8 @@ public class Forest {
                     tmpProb.add(randomProb());
                 }
             }
-            probtree.add(tmpProb);
+            //System.out.println();
+            probtreeburn.add(tmpProb);
             forest.add(tmpForest);
         }
     }
@@ -73,7 +106,7 @@ public class Forest {
     }
 
     public ArrayList<ArrayList<Double>> getProbTree(){
-        return probtree;
+        return probtreeburn;
     }
 
     public double randomProb() {
@@ -91,28 +124,28 @@ public class Forest {
                     int j=tmpburnj.get(k);
 
                     //RIGHT
-                    if(forest.get(i+1).get(j) == 1 && probtree.get(i+1).get(j) < prob){
+                    if(forest.get(i+1).get(j) == 1 && probtreeburn.get(i+1).get(j) < probburn){
                         forest.get(i+1).set(j,2);//set burn to 2
                         tmpi.add(i+1);
                         tmpj.add(j);
                     }
 
                     //LEFT
-                    if(forest.get(i-1).get(j) == 1 && probtree.get(i-1).get(j) < prob){
+                    if(forest.get(i-1).get(j) == 1 && probtreeburn.get(i-1).get(j) < probburn){
                         forest.get(i-1).set(j,2);
                         tmpi.add(i-1);
                         tmpj.add(j);
                     }
 
                     //TOP
-                    if(forest.get(i).get(j+1) == 1 && probtree.get(i).get(j+1) < prob){
+                    if(forest.get(i).get(j+1) == 1 && probtreeburn.get(i).get(j+1) < probburn){
                         forest.get(i).set(j+1,2);
                         tmpi.add(i);
                         tmpj.add(j+1);
                     }
 
                     //BOTTOM
-                    if(forest.get(i).get(j-1) == 1 && probtree.get(i).get(j-1) < prob){
+                    if(forest.get(i).get(j-1) == 1 && probtreeburn.get(i).get(j-1) < probburn){
                         forest.get(i).set(j-1,2);
                         tmpi.add(i);
                         tmpj.add(j-1);
@@ -130,10 +163,10 @@ public class Forest {
 
     }
     public void assignTreeAndFire(){
-        for(int i =1;i<size-2;i++){
-            for(int j = 1;j<size-2;j++){
-            if(randomProb() < treeborn){
-                if(randomProb() < prob){
+        for(int i =1;i<forest.size()-2;i++){
+            for(int j = 1;j<forest.size()-2;j++){
+            if(randomProb() < probtree){
+                if(randomProb() < probtreestartburn){
                     forest.get(i).set(j,2);
                     tmpburni.add(i);
                     tmpburnj.add(j);

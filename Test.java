@@ -9,8 +9,8 @@
  */
 public class Test {
     public static void main(String[] args){
-        SpreadFire s = new SpreadFire(300,0.7,0.8);
-        s.burn();
+        Screen s=new Screen();
+        s.reset();
        /* f.printArr();
         f.fireSpread();
                 System.out.println();
