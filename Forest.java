@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 public class Forest {
     private ArrayList<ArrayList<Double>> probtreeburn=new ArrayList<>();//prob of each tree can burn or not
