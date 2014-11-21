@@ -3,6 +3,6 @@ Spread-of-Fire
 
 A java simulation of fire spreading
 
-LICENSE
+License
 ==============
 Spread of Fire Project is Licensed under the MIT License
