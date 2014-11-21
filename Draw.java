@@ -16,14 +16,12 @@ public class Draw extends JPanel{
 	private int rowcol;
 	private int screenwidth;
 	private int blocksize;
-	private int top;
-	public Draw(int rc,int scw,ArrayList<ArrayList<Integer>> f,int marginleft){
+	public Draw(int rc,int scw,ArrayList<ArrayList<Integer>> f){
 		rowcol=rc;
 		screenwidth=scw;
 		forest=f;
 		blocksize=screenwidth/rowcol;
 		rowcol*=blocksize;
-		top=marginleft;
 	}
 
 	/*public Draw(boolean init){
@@ -35,12 +33,13 @@ public class Draw extends JPanel{
 		//super.paintComponent(g);
 		
 			g.setColor(Color.green);
-			g.fillRect(blocksize,blocksize, screenwidth-blocksize,  screenwidth-blocksize);
+			g.fillRect(0,0, screenwidth,  screenwidth);
 		
-		    for (int i=top,l=0;i<rowcol && l<forest.size();i+=blocksize,l++ ) {
+		    for (int i=0,l=0;i<rowcol && l<forest.size();i+=blocksize,l++ ) {
 		    	for (int j=0,m=0;j<rowcol && m<forest.get(l).size() ;j+=blocksize,m++ ) {
 		    		g.setColor(getColor(forest.get(l).get(m)));
 		   			if(forest.get(l).get(m)!=1) {g.fillRect(i,j, blocksize, blocksize);}
+		   			//g.fillRect(i,j, blocksize, blocksize);
 		    	}
 		    }
 		
@@ -51,9 +50,16 @@ public class Draw extends JPanel{
 	}
 
 	private Color getColor(int num){
-		/*if(i==1){return Color.green;}
-		else if(i==2){return Color.red;}
-		else{return Color.yellow;}*/
-		return num==1 ? Color.green : (num==2 ? Color.red : Color.yellow);
+		if(num==1){
+			/*if(prob < 0.2){return new Color(153,255,153);}
+			else if(prob < 0.4){return new Color(102,255,102);}
+			else if(prob < 0.6){return new Color(51,255,51);}
+			else if(prob < 0.8){return new Color(0,255,0);}
+			else{return new Color(0,204,0);}*/
+			return Color.green;
+		}
+		else if(num==2){return Color.red;}
+		else{return Color.yellow;}
+		//return num==1 ? Color.green : (num==2 ? Color.red : Color.yellow);
 	}
 }

@@ -17,14 +17,14 @@ public class Forest {
         this.probtree=probtree;
         this.probtreestartburn=probtreestartburn;
         build();
-        //randomStartBurn(2);
-        assignTreeAndFire();
+        randomStartBurn(2);
+        //assignTreeAndFire();
     }
 
     public void reConstruct(){
         build();
-        //randomStartBurn(2);
-        assignTreeAndFire();
+        randomStartBurn(2);
+        //assignTreeAndFire();
     }
 
     public void setSize(int sz){
@@ -45,6 +45,10 @@ public class Forest {
 
     public int getSize(){
         return size;
+    }
+
+    public ArrayList<ArrayList<Double>> getBurnProb(){
+        return probtreeburn;
     }
 
 
@@ -69,8 +73,10 @@ public class Forest {
                     tmpProb.add(randomProb());
                 }*/else { 
                     //normal tree
-                    tmpForest.add(1);
-                    tmpProb.add(randomProb());
+                    
+                        tmpForest.add(1);
+                        tmpProb.add(randomProb());
+                  
                 }
             }
             //System.out.println();
@@ -84,6 +90,8 @@ public class Forest {
         // 0 1 1 0
         // 0 1 1 0
         // 0 0 0 0
+        tmpburni.clear();
+        tmpburnj.clear();
         for(int k=0;k<c;k++){
             double range = ((size-2) - 1) + 1;     
             int i=(int)(Math.random() * range) + 1;//between 1 to size-2
