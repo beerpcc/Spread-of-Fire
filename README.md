@@ -3,7 +3,9 @@ Spread-of-Fire
 
 A java simulation of fire spreading
 
-[Documentation](https://github.com/cyberbeer/Spread-of-Fire/wiki/Documentation)
+* [Introduction](https://github.com/cyberbeer/Spread-of-Fire/wiki/Introduction)
+
+* [Documentation](https://github.com/cyberbeer/Spread-of-Fire/wiki/Documentation)
 
 License
 ==============
