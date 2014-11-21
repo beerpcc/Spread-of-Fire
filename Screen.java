@@ -26,7 +26,8 @@ public class Screen extends JFrame {
     private JButton reset,startstop,step;
     private JTextField probburn,probtree,forestsize,probtreestartburn;
     private JSlider setdelay = new JSlider(1, 20);
-    private JLabel forestsizelabel,probburnlabel,probtreelabel,probtreestartburnlabel,delayL;
+    private JComboBox probtreestartburnlabel;
+    private JLabel forestsizelabel,probburnlabel,probtreelabel,delayL;
     private Panel rpane,cpane,onepane,twopane,threepane,fourpane,fivepane,sixpane,sevenpane;
     private BorderLayout bl;
     private Draw dr1,dr2;
@@ -36,7 +37,7 @@ public class Screen extends JFrame {
     private Forest fr;
     private int delayinterval;
     public Screen() {
-        fr=new Forest(200,0.7,0.0,0.6);
+        fr=new Forest(200,0.7,0.1,0.6);
         delayinterval=10;
         init();
         bindEvent();
@@ -56,7 +57,9 @@ public class Screen extends JFrame {
         rpane.setLayout(new GridLayout(10,1));
         cpane=new Panel();
         startstop=new JButton("Start");
-
+        frame.getContentPane().setBackground(new Color(250,250,250));
+        frame.setBackground(new Color(250,250,250));
+        frame.setResizable(false);
         step=new JButton("Step");
         reset=new JButton("Reset");
         frame.setSize(950,650);
@@ -75,15 +78,14 @@ public class Screen extends JFrame {
         reset.setForeground(Color.WHITE);
 
         onepane=new Panel(new FlowLayout(FlowLayout.RIGHT));
-
         forestsizelabel=new JLabel("Forest size ");
         forestsizelabel.setFont(new Font("Segoe Print",Font.BOLD,18));
         forestsizelabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         forestsize=new JTextField();
+        forestsize.setText("200");
         forestsize.setFont(new Font("Segoe Print",Font.BOLD,18));
         forestsize.setColumns(3);
         forestsize.setBackground(new Color(153,255,255));
-        
         onepane.add(forestsizelabel);
         onepane.add(forestsize);
 
@@ -91,6 +93,7 @@ public class Screen extends JFrame {
         probburnlabel=new JLabel("Burn Probability ");
         probburnlabel.setFont(new Font("Segoe Print",Font.BOLD,18));
         probburn=new JTextField();
+        probburn.setText("0.7");
         probburn.setFont(new Font("Segoe Print",Font.BOLD,18));
         probburn.setColumns(3);
         probburn.setBackground(new Color(153,255,255));
@@ -101,6 +104,7 @@ public class Screen extends JFrame {
         probtreelabel=new JLabel("Tree Probability ");
         probtreelabel.setFont(new Font("Segoe Print", Font.BOLD,18));
         probtree=new JTextField();
+        probtree.setText("0.6");
         probtree.setFont(new Font("Segoe Print",Font.BOLD,18));
         probtree.setColumns(3);
         probtree.setBackground(new Color(153,255,255));
@@ -108,9 +112,12 @@ public class Screen extends JFrame {
         threepane.add(probtree);
 
         fourpane=new Panel(new FlowLayout(FlowLayout.RIGHT));
-        probtreestartburnlabel=new JLabel("Start Burn Probability ");
+        probtreestartburnlabel=new JComboBox();
+        probtreestartburnlabel.addItem("Start Burn Probability ");
+        probtreestartburnlabel.addItem("Random burn point ");
         probtreestartburnlabel.setFont(new Font("Segoe Print",Font.BOLD,18));
         probtreestartburn=new JTextField();
+        probtreestartburn.setText("0.1");
         probtreestartburn.setFont(new Font("Segoe Print",Font.BOLD,18));
         probtreestartburn.setColumns(3);
         probtreestartburn.setBackground(new Color(153,255,255));
@@ -126,12 +133,10 @@ public class Screen extends JFrame {
         setdelay.setMinorTickSpacing(20);
         setdelay.setPaintTicks(true);
         setdelay.setPaintLabels(true);
-        
         fivepane.add(delayL);
         fivepane.add(setdelay);
-        //
-        sixpane = new Panel(new FlowLayout(FlowLayout.RIGHT));
         
+        sixpane = new Panel(new FlowLayout(FlowLayout.RIGHT));
         sixpane.add(startstop);
         sixpane.add(step);
         sixpane.add(reset);
@@ -167,6 +172,14 @@ public class Screen extends JFrame {
             public void actionPerformed(ActionEvent e){
 
                 if(startstop.getText().equals("Start")){
+                    fr=new Forest(Integer.parseInt(forestsize.getText()),Double.parseDouble(probburn.getText()),Double.parseDouble(probtreestartburn.getText()),Double.parseDouble(probtree.getText()));
+                            
+                            //fr.assignTree(Double.parseDouble(probtree.getText()));
+                            if(probtreestartburnlabel.getSelectedIndex()==0){
+                                fr.assignFire(Double.parseDouble(probtreestartburn.getText()));
+                            }else{
+                                fr.randomStartBurn(Integer.parseInt(probtreestartburn.getText()));
+                            }
                     (new Thread(new Runnable(){
                         @Override
                         public void run(){
@@ -176,7 +189,7 @@ public class Screen extends JFrame {
                             fr.setProbTree(Double.parseDouble(probtree.getText()));
                             fr.reConstruct();*/
 
-                            fr=new Forest(Integer.parseInt(forestsize.getText()),Double.parseDouble(probburn.getText()),Double.parseDouble(probtreestartburn.getText()),Double.parseDouble(probtree.getText()));
+                            
                             reset();
                             delayinterval = setdelay.getValue()*10;
                             burn();
@@ -299,7 +312,7 @@ public class Screen extends JFrame {
             delay();
             reDraw();
         }
-        //startstop.setText("Start");
+        if(!fr.isBurning()) {startstop.setText("Start");}
 
     }
 

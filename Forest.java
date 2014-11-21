@@ -17,14 +17,14 @@ public class Forest {
         this.probtree=probtree;
         this.probtreestartburn=probtreestartburn;
         build();
-        randomStartBurn(2);
-        //assignTreeAndFire();
+        //randomStartBurn(2);
+        assignTree();
     }
 
     public void reConstruct(){
         build();
-        randomStartBurn(2);
-        //assignTreeAndFire();
+        //randomStartBurn(2);
+        assignTree();
     }
 
     public void setSize(int sz){
@@ -85,7 +85,7 @@ public class Forest {
         }
     }
 
-    private void randomStartBurn(int c){
+    public void randomStartBurn(int c){
         // 0 0 0 0
         // 0 1 1 0
         // 0 1 1 0
@@ -170,21 +170,32 @@ public class Forest {
 
 
     }
-    public void assignTreeAndFire(){
+    public void assignTree(){
         for(int i =1;i<forest.size()-2;i++){
             for(int j = 1;j<forest.size()-2;j++){
-            if(randomProb() < probtree){
-                if(randomProb() < probtreestartburn){
-                    forest.get(i).set(j,2);
-                    tmpburni.add(i);
-                    tmpburnj.add(j);
-                }else{
+                if(randomProb() < probtree){
+                    
                     forest.get(i).set(j,1);
-                 }
-            }else{
-                forest.get(i).set(j,0);
-             }
+                }else{
+                    forest.get(i).set(j,0);
+                }
+            }
         }
     }
-}
+
+    public void assignFire(double probtreestartburnIn){
+        for(int i =1;i<forest.size()-2;i++){
+            for(int j = 1;j<forest.size()-2;j++){
+                if(forest.get(i).get(j) ==1){
+                    if(randomProb() < probtreestartburnIn){
+                        forest.get(i).set(j,2);
+                        tmpburni.add(i);
+                        tmpburnj.add(j);
+                    }
+                }
+            }
+        }
+    }
+
+
 }
