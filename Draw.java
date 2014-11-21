@@ -31,9 +31,9 @@ public class Draw extends JPanel{
 	@Override
 	public void paintComponent(Graphics g){
 		//super.paintComponent(g);
-		
+			revalidate();
 			g.setColor(Color.green);
-			g.fillRect(0,0, screenwidth,  screenwidth);
+			g.fillRect(0,0, rowcol,  rowcol);
 		
 		    for (int i=0,l=0;i<rowcol && l<forest.size();i+=blocksize,l++ ) {
 		    	for (int j=0,m=0;j<rowcol && m<forest.get(l).size() ;j+=blocksize,m++ ) {

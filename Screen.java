@@ -51,7 +51,6 @@ public class Screen extends JFrame {
         lforest=new ArrayList<>();
         rforest=new ArrayList<>();
         frame=new JFrame("Spread of Fire");
-        frame.setBackground(Color.BLACK);
         frame.setVisible(true);
         rpane=new Panel();
         rpane.setLayout(new GridLayout(10,1));
@@ -174,9 +173,11 @@ public class Screen extends JFrame {
                             /*fr.setSize(Integer.parseInt(forestsize.getText()));
                             fr.setProbBurn(Double.parseDouble(probburn.getText()));
                             fr.setProbTreeStartBurn(Double.parseDouble(probtreestartburn.getText()));
-                            fr.setProbTree(Double.parseDouble(probtree.getText()));*/
-                            //initForest();
+                            fr.setProbTree(Double.parseDouble(probtree.getText()));
+                            fr.reConstruct();*/
 
+                            fr=new Forest(Integer.parseInt(forestsize.getText()),Double.parseDouble(probburn.getText()),Double.parseDouble(probtreestartburn.getText()),Double.parseDouble(probtree.getText()));
+                            reset();
                             delayinterval = setdelay.getValue()*10;
                             burn();
                         }
@@ -191,6 +192,7 @@ public class Screen extends JFrame {
                      (new Thread(new Runnable(){
                         @Override
                         public void run(){
+                            isstop=false;
                             burn();
                         }
                     })).start();
@@ -210,6 +212,7 @@ public class Screen extends JFrame {
         reset.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 reset();
+                startstop.setText("Start");
             }
         });
 
@@ -279,7 +282,6 @@ public class Screen extends JFrame {
     public void reset(){
         //print("forest");
         stop();
-        startstop.setText("Start");
         fr.reConstruct();
         drawBlock(fr.getSize(),fr.getForest());
         reDraw();
@@ -297,6 +299,8 @@ public class Screen extends JFrame {
             delay();
             reDraw();
         }
+        //startstop.setText("Start");
+
     }
 
     public void stop(){
