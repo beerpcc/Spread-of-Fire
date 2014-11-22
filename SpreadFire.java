@@ -20,7 +20,7 @@ public class SpreadFire {
         area=areain;
         prob=probin;
         probtreeborn = probtreeborn;
-        fr=new Forest(area,prob,probtreeborn);
+        fr=new Forest(area,prob,probtreeborn,0.5);
         g=new GUI();
         pause=false;
     }

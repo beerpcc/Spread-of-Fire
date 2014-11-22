@@ -172,8 +172,8 @@ public class Forest {
 
     }
     public void assignTree(){
-        for(int i =1;i<forest.size()-2;i++){
-            for(int j = 1;j<forest.size()-2;j++){
+        for(int i =1;i<forest.size()-1;i++){
+            for(int j = 1;j<forest.size()-1;j++){
                 if(randomProb() < probtree){
                     
                     forest.get(i).set(j,1);
@@ -185,8 +185,8 @@ public class Forest {
     }
 
     public void assignFire(double probtreestartburnIn){
-        for(int i =1;i<forest.size()-2;i++){
-            for(int j = 1;j<forest.size()-2;j++){
+        for(int i =1;i<forest.size()-1;i++){
+            for(int j = 1;j<forest.size()-1;j++){
                 if(forest.get(i).get(j) ==1){
                     if(randomProb() < probtreestartburnIn){
                         forest.get(i).set(j,2);

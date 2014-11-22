@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
+import java.net.URL;
 
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -15,7 +16,7 @@ import javax.swing.border.TitledBorder;
 
 public class Screen extends JFrame {
     private JFrame frame;
-    private JButton reset,startstop,step;
+    private JButton reset,startstop,step,doc;
     private JTextField probburn,probtree,forestsize,probtreestartburn;
     private JSlider setdelay = new JSlider(1, 20);
     private JComboBox probtreestartburnlabel;
@@ -116,7 +117,7 @@ public class Screen extends JFrame {
         fourpane.add(probtreestartburnlabel);
         fourpane.add(probtreestartburn);
 
-        //TODO
+        
         fivepane=new Panel(new FlowLayout(FlowLayout.RIGHT));
         delayL=new JLabel("Delay ");
         delayL.setFont(new Font("Segoe Print",Font.BOLD,18));
@@ -128,10 +129,14 @@ public class Screen extends JFrame {
         fivepane.add(delayL);
         fivepane.add(setdelay);
         
+        doc=new JButton("Documentation");
         sixpane = new Panel(new FlowLayout(FlowLayout.RIGHT));
         sixpane.add(startstop);
         sixpane.add(step);
         sixpane.add(reset);
+
+        Panel sevenpane = new Panel(new FlowLayout(FlowLayout.CENTER));
+        sevenpane.add(doc);
         
         bl= new BorderLayout(0, 0);
         frame.getContentPane().setLayout(bl);
@@ -151,6 +156,7 @@ public class Screen extends JFrame {
         rpane.add(fourpane);
         rpane.add(fivepane);
         rpane.add(sixpane);
+        rpane.add(sevenpane);
         frame.getContentPane().add(rpane, BorderLayout.LINE_END);
         frame.repaint();
         frame.revalidate();
@@ -175,14 +181,7 @@ public class Screen extends JFrame {
                     (new Thread(new Runnable(){
                         @Override
                         public void run(){
-                            /*fr.setSize(Integer.parseInt(forestsize.getText()));
-                            fr.setProbBurn(Double.parseDouble(probburn.getText()));
-                            fr.setProbTreeStartBurn(Double.parseDouble(probtreestartburn.getText()));
-                            fr.setProbTree(Double.parseDouble(probtree.getText()));
-                            fr.reConstruct();*/
-
-                            
-                            reset();
+                           reset();
                             delayinterval = setdelay.getValue()*10;
                             burn();
                         }
@@ -217,6 +216,7 @@ public class Screen extends JFrame {
         reset.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 reset();
+                step.setEnabled(false);
                 startstop.setText("Start");
             }
         });
@@ -224,6 +224,17 @@ public class Screen extends JFrame {
         setdelay.addChangeListener(new ChangeListener(){
             public void stateChanged(ChangeEvent e){
                 delayinterval = setdelay.getValue()*10;
+            }
+        });
+
+        doc.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+               try {
+                    Desktop.getDesktop().browse(new URL("https://github.com/cyberbeer/Spread-of-Fire/wiki/Documentation").toURI());
+                } catch (Exception x) {
+                    x.printStackTrace();
+                }
             }
         });
     }
@@ -245,15 +256,8 @@ public class Screen extends JFrame {
     public void drawBlock(int r,ArrayList<ArrayList<Integer>> area){
         forest=area;
         splitForest(forest);
-        /*dr1= new Draw(r,600,lforest,0);
-
-        dr2= new Draw(r,600,rforest,0);
-        cpane.add(dr1);
-        cpane.add(dr2);*/
         dr1= new Draw(r,600,area);
         frame.getContentPane().add(dr1, BorderLayout.CENTER);
-        /*try{Thread.sleep(10);}catch(Exception e){}
-        frame.getContentPane().remove(dr1);*/
     }
 
     public void reDraw(){
@@ -297,7 +301,6 @@ public class Screen extends JFrame {
         //print("forest");
         isstop=false;
         drawBlock(fr.getSize(),fr.getForest());
-        System.out.println(fr.isBurning());
         while(fr.isBurning() && !isstop){
         //print("forest"); 
             fr.fireSpread(); 
